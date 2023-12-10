@@ -21,7 +21,7 @@ class Game:
 		}
 		self.score = 0
 		pygame.mixer.music.load("Sounds/music.mp3")
-		pygame.mixer.music.set_volume(0.3)
+		pygame.mixer.music.set_volume(0.2)
 		pygame.mixer.music.play(-1)
 
 	def update_score(self, lines_cleared, move_down_points):
