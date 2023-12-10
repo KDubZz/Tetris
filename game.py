@@ -50,7 +50,7 @@ class Game:
 	def hard_drop(self):
 		# Hard drop all the way to the bottom of the possible play area without delay.
 		collided = False
-		while collided == False:
+		while not collided:
 			self.current_block.move(1, 0)
 			if self.block_inside() == False or self.block_fits() == False: # Checks for collisions or out of bounds
 				collided = True
@@ -63,7 +63,7 @@ class Game:
 		else:
 			return
 		self.current_block.rotation_state = 0
-		if self.held_block == None:
+		if self.held_block is None:
 			self.held_block = self.current_block
 			self.current_block = self.next_block
 			if self.block_inside() == False or self.block_fits() == False: # Checks for collisions or out of bounds
@@ -102,10 +102,9 @@ class Game:
 	def block_fits(self):
 		# Checks for if the block fits into a potential location.
 		tiles = self.current_block.get_cell_positions()
-		for tile in tiles:
-			if self.grid.is_empty(tile.row, tile.column) == False:
-				return False
-		return True
+		return all(
+			self.grid.is_empty(tile.row, tile.column) != False for tile in tiles
+		)
 
 	def rotate(self):
 		# Rotates the block using the 4 total rotations stored in Block().cells
@@ -116,10 +115,9 @@ class Game:
 	def block_inside(self):
 		# Checks to see if a given block is inside the playing area.
 		tiles = self.current_block.get_cell_positions()
-		for tile in tiles:
-			if self.grid.is_inside(tile.row, tile.column) == False:
-				return False
-		return True
+		return all(
+			self.grid.is_inside(tile.row, tile.column) != False for tile in tiles
+		)
 	
 	def reset(self):
 		# Game reset - resets all parameters for a new game.
