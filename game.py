@@ -20,7 +20,7 @@ class Game:
 			4: 1200,
 		}
 		self.score = 0
-		pygame.mixer.music.load("music.mp3")
+		pygame.mixer.music.load("Sounds/music.mp3")
 		pygame.mixer.music.set_volume(0.3)
 		pygame.mixer.music.play(-1)
 
