@@ -40,26 +40,30 @@ while True:
 		if event.type == pygame.QUIT:
 			pygame.quit()
 			sys.exit()
+		if event.type == GAME_UPDATE and game.game_over == False: # Automatic block moving down
+			game.move_down()
 		if event.type == pygame.KEYDOWN:
-			if game.game_over == True:
-				game.game_over = False
-				game.reset()
-			if event.key == pygame.K_LEFT or event.key == pygame.K_a and game.game_over == False:
-				game.move_left()
-			if event.key == pygame.K_RIGHT or event.key == pygame.K_d and game.game_over == False:
-				game.move_right()
-			if event.key == pygame.K_DOWN or event.key == pygame.K_s and game.game_over == False:
-				game.move_down()
-				game.update_score(0, 1)
 			if event.key == pygame.K_UP or event.key == pygame.K_LCTRL and game.game_over == False:
 				game.rotate()
 			if event.key == pygame.K_SPACE and game.game_over == False:
 				game.hard_drop()
 				game.update_score(0, 2)
-			if event.key == pygame.K_LSHIFT and game.game_over == False:
-				game.hold()
-		if event.type == GAME_UPDATE and game.game_over == False: # Automatic block moving down
-			game.move_down()
+	keys = pygame.key.get_pressed()
+	if game.game_over == True:
+		if keys[pygame.K_RETURN]:
+			game.reset()
+			game.game_over = False
+	if keys[pygame.K_LEFT] and game.game_over == False:
+		game.move_left()
+	if keys[pygame.K_RIGHT] and game.game_over == False:
+		game.move_right()
+	if keys[pygame.K_DOWN] and game.game_over == False:
+		game.move_down()
+		game.update_score(0, 1)
+	if keys[pygame.K_LSHIFT] and game.game_over == False:
+		game.hold()
+	
+	
 
 	# Drawing
 	score_value_surface = title_font.render(str(game.score), True, Colours.white)
@@ -76,4 +80,4 @@ while True:
 	game.draw(screen)
 
 	pygame.display.update()
-	clock.tick(144)
+	clock.tick(20)

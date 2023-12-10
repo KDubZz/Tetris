@@ -1,6 +1,7 @@
 from grid import Grid
 from blocks import *
 from random import choice
+import pygame
 
 class Game:
 	def __init__(self):
@@ -13,12 +14,15 @@ class Game:
 		self.game_over = False
 		self.scoring = {
 			0: 0,
-			1: 100,
-			2: 300,
-			3: 500,
-			4: 1000,
+			1: 40,
+			2: 100,
+			3: 300,
+			4: 1200,
 		}
 		self.score = 0
+		pygame.mixer.music.load("music.mp3")
+		pygame.mixer.music.set_volume(0.3)
+		pygame.mixer.music.play(-1)
 
 	def update_score(self, lines_cleared, move_down_points):
 		self.score += (self.scoring[lines_cleared] + move_down_points)
@@ -136,4 +140,4 @@ class Game:
 		self.current_block.draw(screen, 0, 0)
 		self.next_block.draw(screen, 258, 270)
 		if self.held_block != None:
-			self.held_block.draw(screen, -240, 90)
+			self.held_block.held_draw(screen, 55, 110)

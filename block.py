@@ -49,5 +49,17 @@ class Block:
 				tile.column * self.cell_size + self.margin + self.draw_offset + self.x_offset + offset_x,
 				tile.row * self.cell_size + self.margin + self.draw_offset + offset_y,
 				self.cell_size - self.margin,
-				self.cell_size - self.margin)
+				self.cell_size - self.margin
+				)
+			pygame.draw.rect(screen, self.colours[self.id], tile_rect)
+
+	def held_draw(self, screen, offset_x, offset_y):
+		tiles = self.cells.get(0)
+		for tile in tiles:
+			tile_rect = pygame.Rect(
+				tile.column * self.cell_size + self.margin + offset_x,
+				tile.row * self.cell_size + self.margin + offset_y,
+				self.cell_size - self.margin,
+				self.cell_size - self.margin
+				)
 			pygame.draw.rect(screen, self.colours[self.id], tile_rect)
