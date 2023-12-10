@@ -24,22 +24,19 @@ class Grid:
 
 	def is_inside(self, row, column):
 		# Check to see if an inputted row and column are within the bounds of the nested list (grid).
-		if row >= 0 and row < self.num_rows and column >= 0 and column < self.num_cols:
-			return True
-		return False
+		return (
+			row >= 0
+			and row < self.num_rows
+			and column >= 0
+			and column < self.num_cols
+		)
 
 	def is_empty(self, row, column):
 		# Check to see if a cell is vacant.
-		if self.grid[row][column] == 0:
-			return True
-		return False
+		return self.grid[row][column] == 0
 	
 	def is_row_full(self, row):
-		# Check to see if a row has been completed.
-		for column in range(self.num_cols):
-			if self.grid[row][column] == 0:
-				return False
-		return True
+		return all(self.grid[row][column] != 0 for column in range(self.num_cols))
 	
 	def clear_row(self, row):
 		# Clears a given row.
